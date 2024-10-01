@@ -322,3 +322,16 @@ def draw_captured():
         captured_piece = captured_pieces_black[i]
         index = piece_list.index(captured_piece)
         screen.blit(small_white_images[index], (925, 5 + 50 * i))
+
+
+# draw a flashing square around king if in check
+def draw_check():
+    if turn_step < 2:
+        if 'king' in white_pieces:
+            king_index = white_pieces.index('king')
+            king_location = white_locations[king_index]
+            for i in range(len(black_options)):
+                if king_location in black_options[i]:
+                    if counter < 15:
+                        pygame.draw.rect(screen, 'dark red', [white_locations[king_index][0] * 100 + 1,
+                                                              white_locations[king_index][1] * 100 + 1, 100, 100], 5)
