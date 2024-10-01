@@ -163,3 +163,12 @@ def check_king(position, color):
         if target not in friends_list and 0 <= target[0] <= 7 and 0 <= target[1] <= 7:
             moves_list.append(target)
     return moves_list
+
+
+# check queen valid moves
+def check_queen(position, color):
+    moves_list = check_bishop(position, color)
+    second_list = check_rook(position, color)
+    for center in range(len(second_list)):
+        moves_list.append(second_list[center])
+    return moves_list
