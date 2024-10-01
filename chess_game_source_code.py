@@ -98,3 +98,27 @@ def draw_board():
             pygame.draw.line(screen, 'black', (100 * center, 0), (100 * center, 800), 2)
         screen.blit(medium_font.render('FORFEIT', True, 'black'), (810, 830))
 
+
+# draw pieces onto board
+def draw_pieces():
+    for center in range(len(white_pieces)):
+        index = piece_list.index(white_pieces[center])
+        if white_pieces[center] == 'pawn':
+            screen.blit(white_pawn, (white_locations[center][0] * 100 + 22, white_locations[center][1] * 100 + 30))
+        else:
+            screen.blit(white_images[index], (white_locations[center][0] * 100 + 10, white_locations[center][1] * 100 + 10))
+        if turn_step < 2:
+            if selection == center:
+                pygame.draw.rect(screen, 'red', [white_locations[center][0] * 100 + 1, white_locations[center][1] * 100 + 1,
+                                                 100, 100], 2)
+
+    for center in range(len(black_pieces)):
+        index = piece_list.index(black_pieces[center])
+        if black_pieces[center] == 'pawn':
+            screen.blit(black_pawn, (black_locations[center][0] * 100 + 22, black_locations[center][1] * 100 + 30))
+        else:
+            screen.blit(black_images[index], (black_locations[center][0] * 100 + 10, black_locations[center][1] * 100 + 10))
+        if turn_step >= 2:
+            if selection == center:
+                pygame.draw.rect(screen, 'blue', [black_locations[center][0] * 100 + 1, black_locations[center][1] * 100 + 1,
+                                                  100, 100], 2)
