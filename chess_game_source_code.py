@@ -172,3 +172,39 @@ def check_queen(position, color):
     for center in range(len(second_list)):
         moves_list.append(second_list[center])
     return moves_list
+
+
+# check bishop moves
+def check_bishop(position, color):
+    moves_list = []
+    if color == 'white':
+        enemies_list = black_locations
+        friends_list = white_locations
+    else:
+        friends_list = black_locations
+        enemies_list = white_locations
+    for center in range(4):  # up-right, up-left, down-right, down-left
+        path = True
+        chain = 1
+        if center == 0:
+            horizontal = 1
+            vertical = -1
+        elif center == 1:
+            horizontal = -1
+            vertical = -1
+        elif center == 2:
+            horizontal = 1
+            vertical = 1
+        else:
+            horizontal = -1
+            vertical = 1
+        while path:
+            if (position[0] + (chain * horizontal), position[1] + (chain * vertical)) not in friends_list and \
+                    0 <= position[0] + (chain * horizontal) <= 7 and 0 <= position[1] + (chain * vertical) <= 7:
+                moves_list.append((position[0] + (chain * horizontal), position[1] + (chain * vertical)))
+                if (position[0] + (chain * horizontal), position[1] + (chain * vertical)) in enemies_list:
+                    path = False
+                chain += 1
+            else:
+                path = False
+    return moves_list
