@@ -335,3 +335,12 @@ def draw_check():
                     if counter < 15:
                         pygame.draw.rect(screen, 'dark red', [white_locations[king_index][0] * 100 + 1,
                                                               white_locations[king_index][1] * 100 + 1, 100, 100], 5)
+    else:
+        if 'king' in black_pieces:
+            king_index = black_pieces.index('king')
+            king_location = black_locations[king_index]
+            for i in range(len(white_options)):
+                if king_location in white_options[i]:
+                    if counter < 15:
+                        pygame.draw.rect(screen, 'dark blue', [black_locations[king_index][0] * 100 + 1,
+                                                               black_locations[king_index][1] * 100 + 1, 100, 100], 5)
