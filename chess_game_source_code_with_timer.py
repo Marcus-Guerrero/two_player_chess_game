@@ -85,19 +85,11 @@ counter = 0
 winner = ''
 game_over = False
 
-# Define function for formatting the time
-def format_time(seconds):
-    hours= int(seconds/3600)
-    minutes = int(seconds/60) % 60
-    seconds = int(seconds % 60)
-    full_time= f"{hours:02}:{minutes:02}:{seconds:02}"
-    return full_time
-
 # draw main game board
 def draw_board():
     for center in range(32):
         column = center % 4
-        row = i // 4
+        row = center // 4
         if row % 2 == 0:
             pygame.draw.rect(screen, 'light gray', [600 - (column * 200), row * 100, 100, 100])
         else:
@@ -370,6 +362,32 @@ def format_time(seconds):
     full_time= f"{hours:02}:{minutes:02}:{seconds:02}"
     return full_time
 
+def draw_timer():
+    white_timer_text = medium_font.render(f"White: {format_time(white_time)}", True, 'black')
+    black_timer_text = medium_font.render(f"Black: {format_time(black_time)}", True, 'black')
+    screen.blit(white_timer_text, (1010, 50))
+    screen.blit(black_timer_text, (1010, 150))
+
+
+def update_dynamic_timer():
+    global white_time, black_time, turn_start_time, current_turn
+    current_time = time.time()
+    elapsed_time = time.time() - turn_start_time
+    turn_start_time = current_time
+    if current_turn == 'white':
+        white_time = max(0, white_time - elapsed_time)
+    elif current_turn == 'black':
+        black_time = max(0, black_time - elapsed_time)
+    turn_start_time = time.time()
+
+# Switch the turn and reset the timer
+def switch_turn():
+    global current_turn
+    update_dynamic_timer()
+    if current_turn == 'white':
+        current_turn = 'black'
+    else:
+        current_turn = 'white'
 
 
 def draw_game_over():
@@ -384,15 +402,14 @@ white_options = check_options(white_pieces, white_locations, 'white')
 run = True
 while run:
     timer.tick(fps)
-    if counter < 30:
-        counter += 1
-    else:
-        counter = 0
     screen.fill('dark gray')
+    update_dynamic_timer()
     draw_board()
     draw_pieces()
     draw_captured()
     draw_check()
+    draw_timer()
+
     if selection != 100:
         valid_moves = check_valid_moves()
         draw_valid(valid_moves)
