@@ -385,16 +385,14 @@ def switch_turn():
     global current_turn
     update_dynamic_timer()
     if current_turn == 'white':
-        current_turn = 'black'
+       current_turn = 'black'
     else:
-        current_turn = 'white'
-
+       current_turn = 'white'
 
 def draw_game_over():
     pygame.draw.rect(screen, 'black', [200, 200, 400, 70])
     screen.blit(font.render(f'{winner} won the game!', True, 'white'), (210, 210))
     screen.blit(font.render(f'Press ENTER to Restart!', True, 'white'), (210, 240))
-
 
 # main game loop
 black_options = check_options(black_pieces, black_locations, 'black')
@@ -442,6 +440,8 @@ while run:
                     turn_step = 2
                     selection = 100
                     valid_moves = []
+                    switch_turn()
+
             if turn_step > 1:
                 if click_coords == (8, 8) or click_coords == (9, 8):
                     winner = 'white'
@@ -463,6 +463,8 @@ while run:
                     turn_step = 0
                     selection = 100
                     valid_moves = []
+                    switch_turn()
+                    
         if event.type == pygame.KEYDOWN and game_over:
             if event.key == pygame.K_RETURN:
                 game_over = False
