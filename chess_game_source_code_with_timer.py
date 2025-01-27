@@ -14,6 +14,13 @@ medium_font = pygame.font.Font('freesansbold.ttf', 40)
 big_font = pygame.font.Font('freesansbold.ttf', 50)
 timer = pygame.time.Clock()
 fps = 60
+
+# Variables for countdown timer
+white_time = 5400
+black_time = 5400
+turn_start_time = time.time()
+current_turn = 'white'
+
 # game variables and images
 white_pieces = ['rook', 'knight', 'bishop', 'king', 'queen', 'bishop', 'knight', 'rook',
                 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn']
@@ -78,6 +85,13 @@ counter = 0
 winner = ''
 game_over = False
 
+# Define function for formatting the time
+def format_time(seconds):
+    hours= int(seconds/3600)
+    minutes = int(seconds/60) % 60
+    seconds = int(seconds % 60)
+    full_time= f"{hours:02}:{minutes:02}:{seconds:02}"
+    return full_time
 
 # draw main game board
 def draw_board():
