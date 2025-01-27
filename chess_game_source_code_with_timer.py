@@ -2,9 +2,10 @@
 # part one, set up variables images and game loop
 
 import pygame
+import time
 
 pygame.init()
-width = 1000
+width = 1500
 height = 900
 screen = pygame.display.set_mode([width, height])
 pygame.display.set_caption('Two-Player Pygame Chess!')
@@ -82,21 +83,23 @@ game_over = False
 def draw_board():
     for center in range(32):
         column = center % 4
-        row = center // 4
+        row = i // 4
         if row % 2 == 0:
             pygame.draw.rect(screen, 'light gray', [600 - (column * 200), row * 100, 100, 100])
         else:
             pygame.draw.rect(screen, 'light gray', [700 - (column * 200), row * 100, 100, 100])
-        pygame.draw.rect(screen, 'gray', [0, 800, width, 100])
-        pygame.draw.rect(screen, 'gold', [0, 800, width, 100], 5)
-        pygame.draw.rect(screen, 'gold', [800, 0, 200, height], 5)
-        status_text = ['White: Select a Piece to Move!', 'White: Select a Destination!',
+    pygame.draw.rect(screen, 'gray', [0, 800, 1000, 100])
+    pygame.draw.rect(screen, 'light gray', [1000, 0, 700, 900])
+    pygame.draw.rect(screen, 'dark green', [0, 800, 1000, 100], 5)
+    pygame.draw.rect(screen, 'dark green', [800, 0, 200, 900], 5)
+    pygame.draw.rect(screen, 'dark green', [800, 0, 700, 900], 5)
+    status_text = ['White: Select a Piece to Move!', 'White: Select a Destination!',
                        'Black: Select a Piece to Move!', 'Black: Select a Destination!']
-        screen.blit(big_font.render(status_text[turn_step], True, 'black'), (20, 820))
-        for center in range(9):
-            pygame.draw.line(screen, 'black', (0, 100 * center), (800, 100 * center), 2)
-            pygame.draw.line(screen, 'black', (100 * center, 0), (100 * center, 800), 2)
-        screen.blit(medium_font.render('FORFEIT', True, 'black'), (810, 830))
+    screen.blit(big_font.render(status_text[turn_step], True, 'black'), (20, 820))
+    for center in range(9):
+        pygame.draw.line(screen, 'black', (0, 100 * center), (800, 100 * center), 2)
+        pygame.draw.line(screen, 'black', (100 * center, 0), (100 * center, 800), 2)
+    screen.blit(medium_font.render('FORFEIT', True, 'black'), (810, 830))
 
 
 # draw pieces onto board
