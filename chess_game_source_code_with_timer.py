@@ -370,7 +370,9 @@ def draw_timer():
 
 
 def update_dynamic_timer():
-    global white_time, black_time, turn_start_time, current_turn
+    global white_time, black_time, turn_start_time, current_turn, game_over
+    if game_over:
+        return
     current_time = time.time()
     elapsed_time = time.time() - turn_start_time
     turn_start_time = current_time
@@ -468,6 +470,10 @@ while run:
         if event.type == pygame.KEYDOWN and game_over:
             if event.key == pygame.K_RETURN:
                 game_over = False
+                white_time = 5400
+                black_time = 5400
+                current_turn = 'white'
+                turn_start_time = time.time()
                 winner = ''
                 white_pieces = ['rook', 'knight', 'bishop', 'king', 'queen', 'bishop', 'knight', 'rook',
                                 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn']
